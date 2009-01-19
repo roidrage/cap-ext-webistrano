@@ -1,0 +1,5 @@
+A bridge so you can run tasks in Webistrano from your command line just using the cap command.
+
+(c) 2009 Mathias Meyer
+
+Released under the MIT license.
