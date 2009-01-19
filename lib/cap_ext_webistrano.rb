@@ -1,5 +1,7 @@
 $:.unshift(File.dirname(File.expand_path(__FILE__)))
 require 'cap_ext_webistrano/task'
+require 'active_resource'
+require 'cap_ext_webistrano/project'
 
 module CapExtWebistrano
   def task(*args, &blk)
@@ -26,7 +28,7 @@ Capistrano::Configuration::Execution.class_eval do
   
   def hijack_capistrano
     puts "Hijacking Capistrano for fun, profit, and Webistrano"
-    @hijack_runner = lambda { CapExtWebistrano::Task.new(current_task.fully_qualified_name).run }
+    @hijack_runner = lambda { CapExtWebistrano::Task.new(current_task.fully_qualified_name, self).run }
     tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}
     namespaces.each {|nmspace| nmspace.last.tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}}
   end
