@@ -2,13 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cap-ext-webistrano}
-  s.version = "0.0.4"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mathias Meyer"]
   s.date = %q{2009-01-20}
   s.email = %q{meyer@paperplanes.de}
-  s.files = ["Rakefile", "README", "VERSION.yml", "lib/cap_ext_webistrano", "lib/cap_ext_webistrano/deployment.rb", "lib/cap_ext_webistrano/project.rb", "lib/cap_ext_webistrano/stage.rb", "lib/cap_ext_webistrano/task.rb", "lib/cap_ext_webistrano.rb", "test/project_shoulda.rb", "test/task_shoulda.rb", "test/test_helper.rb"]
+  s.files = ["Rakefile", "README.markdown", "VERSION.yml", "lib/cap_ext_webistrano", "lib/cap_ext_webistrano/deployment.rb", "lib/cap_ext_webistrano/project.rb", "lib/cap_ext_webistrano/stage.rb", "lib/cap_ext_webistrano/task.rb", "lib/cap_ext_webistrano.rb", "test/project_shoulda.rb", "test/task_shoulda.rb", "test/test_helper.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/mattmatt/cap-ext-webistrano}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
