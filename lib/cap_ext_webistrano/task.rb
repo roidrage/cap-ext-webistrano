@@ -22,7 +22,7 @@ module CapExtWebistrano
       still_running = true
       while still_running
         sleep 5
-        @deployment = Deployment.find(@deployment.id, :params => {:project_id => @project.id, :stage_id => @stage.id})
+        @deployment.reload
         print_diff(@deployment)
         still_running = false unless @deployment.completed_at.nil?
       end
