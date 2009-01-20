@@ -5,7 +5,7 @@ require 'cap_ext_webistrano/project'
 
 module CapExtWebistrano
   def task(*args, &blk)
-    original_task(*args, &@hijack_runner)
+    original_task(*args, &hijack_runner)
   end
 
   def after(*args)
@@ -26,10 +26,13 @@ end
 Capistrano::Configuration::Execution.class_eval do
   alias :original_find_and_execute_task :find_and_execute_task
   
+  def hijack_runner
+    @hijack_runner ||= lambda { CapExtWebistrano::Task.new(current_task.fully_qualified_name, self).run }
+  end
+  
   def hijack_capistrano
-    @hijack_runner = lambda { CapExtWebistrano::Task.new(current_task.fully_qualified_name, self).run }
-    tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}
-    namespaces.each {|nmspace| nmspace.last.tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}}
+    tasks.each {|tsk| tsk.last.instance_variable_set(:@body, hijack_runner)}
+    namespaces.each {|nmspace| nmspace.last.tasks.each {|tsk| tsk.last.instance_variable_set(:@body, hijack_runner)}}
   end
   
   def find_and_execute_task(task, hooks = {})
