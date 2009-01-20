@@ -15,6 +15,7 @@ class TaskTest < Test::Unit::TestCase
       @config[:user] = "chunky"
       @task = CapExtWebistrano::Task.new("deploy", @config)
       @task.set_access_data
+      @task.stubs(:sleep)
     end
     
     context "when setting up the configuration data" do
@@ -44,7 +45,9 @@ class TaskTest < Test::Unit::TestCase
         Project.stubs(:find).returns([@project1, @project2])
         @stage1 = Stage.new(:name => "test", :id => 3)
         Stage.stubs(:find).returns([@stage1])
-        Deployment.stubs(:create).returns nil
+        @deployment = Deployment.new(:completed_at => Time.now, :log => "Chunky bacon!")
+        Deployment.stubs(:create).returns @deployment
+        Deployment.stubs(:find).returns(@deployment)
         @config[:application] = "Bacon"
         @config[:stage] = "test"
       end
@@ -60,8 +63,29 @@ class TaskTest < Test::Unit::TestCase
       end
       
       should "create a deployment" do
-        Deployment.expects(:create).with(:task => "deploy", :project_id => 2, :stage_id => 3)
+        Deployment.expects(:create).with(:task => "deploy", :project_id => 2, :stage_id => 3).returns(@deployment)
         @task.run
+      end
+      
+      should "find the latest deployment" do
+        Deployment.expects(:find).returns @deployment
+        @task.run
+      end
+      
+      context "when requesting the deployment multiple times" do
+        setup do
+          @seq = sequence("latest")
+          @deployment1 = Deployment.new(:completed_at => nil, :log => "Chunky bacon", :id => 2)
+          @deployment2 = Deployment.new(:completed_at => Time.now, :log => "Chunky bacon is my bitch", :id => 2)
+          Deployment.stubs(:create).returns(@deployment1)
+        end
+        
+        should "concat the deployment log" do
+          Deployment.expects(:find).returns(@deployment1).in_sequence(@seq)
+          Deployment.expects(:find).returns(@deployment2).in_sequence(@seq)
+          @task.run
+          assert_equal "Chunky bacon is my bitch", @task.log
+        end
       end
     end
   end
