@@ -1,6 +1,11 @@
 A drop-n replacement for Capistrano so you can run tasks in Webistrano from
 your command line just using the cap command.
 
+Installation
+============
+
+gem install mattmatt-cap-ext-webistrano
+
 Usage
 =====
 
@@ -9,6 +14,7 @@ Capistrano.
 
 In your Capfile, insert the following lines at the end.
 
+gem 'mattmatt-cap-ext-webistrano'
 require 'cap_ext_webistrano'
 
 The Webistrano extensions require a couple of configuration options that you
