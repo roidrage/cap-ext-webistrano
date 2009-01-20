@@ -1,4 +1,26 @@
-A bridge so you can run tasks in Webistrano from your command line just using the cap command.
+A drop-n replacement for Capistrano so you can run tasks in Webistrano from
+your command line just using the cap command.
+
+Usage
+=====
+
+You can still use the capify command to generate the initial files required by
+Capistrano.
+
+In your Capfile, insert the following lines at the end.
+
+require 'cap_ext_webistrano'
+
+The Webistrano extensions require a couple of configuration options that you
+can specify in your deploy.rb. They're pretty much the standard options you'd
+configure for your application with Capistrano.
+
+set :application, "My project" # The project as named in Webistrano
+set :user, "admin"
+set :password, "admin"
+set :stage, "test" # specify the stage you want to deploy
+set :webistrano_home, "http://webistrano.mydomain.com/"
+
 
 (c) 2009 Mathias Meyer
 
