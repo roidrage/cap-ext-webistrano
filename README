@@ -21,6 +21,12 @@ set :password, "admin"
 set :stage, "test" # specify the stage you want to deploy
 set :webistrano_home, "http://webistrano.mydomain.com/"
 
+If you only have one stage in your project this should do, however with
+several stages it'd be better to ask for the stage to be deployed:
+
+set :stage do
+  Capistrano::CLI.ui.ask "Specify the stage to deploy: "
+end
 
 (c) 2009 Mathias Meyer
 

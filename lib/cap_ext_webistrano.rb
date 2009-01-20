@@ -27,14 +27,12 @@ Capistrano::Configuration::Execution.class_eval do
   alias :original_find_and_execute_task :find_and_execute_task
   
   def hijack_capistrano
-    puts "Hijacking Capistrano for fun, profit, and Webistrano"
     @hijack_runner = lambda { CapExtWebistrano::Task.new(current_task.fully_qualified_name, self).run }
     tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}
     namespaces.each {|nmspace| nmspace.last.tasks.each {|tsk| tsk.last.instance_variable_set(:@body, @hijack_runner)}}
   end
   
   def find_and_execute_task(task, hooks = {})
-    puts 'hello'
     hijack_capistrano
     @callbacks = {}
     original_find_and_execute_task(task, {})
