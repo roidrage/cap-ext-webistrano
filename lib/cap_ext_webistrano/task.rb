@@ -1,21 +1,27 @@
 require 'cap_ext_webistrano/project'
+require 'cap_ext_webistrano/stage'
+require 'cap_ext_webistrano/deployment'
 
 module CapExtWebistrano
   class Task
+    attr_accessor :task
+    
     def initialize(task, config)
       @task = task
       @config = config
     end
 
     def set_access_data
-      Project.site = @config[:webistrano_home]
-      Project.user = @config[:user]
-      Project.password = @config[:password]
+      [Project, Stage, Deployment].each do |klazz|
+        klazz.configure(@config)
+      end
     end
     
     def run
       set_access_data
-      puts "Running task #{@task} via Webistrano at #{@config[:webistrano_home]}"
+      project = Project.find_by_name(@config[:application])
+      stage = project.find_stage(@config[:stage])
+      Deployment.create(:task => task, :stage_id => stage.id, :project_id => project.id)
     end
   end
 end
