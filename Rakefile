@@ -12,6 +12,7 @@ begin
     s.authors = ["Mathias Meyer"]
     s.files = FileList["[A-Z]*", "{lib,test}/**/*"]
     s.add_dependency 'capistrano'
+    s.add_dependency 'activeresource'
   end
 rescue LoadError 
   puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com" 
