@@ -21,10 +21,10 @@ The Webistrano extensions require a couple of configuration options that you
 can specify in your deploy.rb. They're pretty much the standard options you'd
 configure for your application with Capistrano.
 
-    set :application, "My project" # The project as named in Webistrano
-    set :user, "admin"
-    set :password, "admin"
-    set :stage, "test" # specify the stage you want to deploy
+    set :application,     "My project" # The project as named in Webistrano
+    set :user,            "admin"
+    set :password,        "admin"
+    set :stage,           "test" # specify the stage you want to deploy
     set :webistrano_home, "http://webistrano.mydomain.com/"
 
 If you only have one stage in your project this should do, however with
