@@ -6,7 +6,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = 'cap-ext-webistrano'
-    s.summary = 'A drop-in replacement for Capistrano to fire off Webistrano deployments transparently without losing the joy of using the cap command.'
+    s.summary = 'A drop-in replacement for Capistrano to fire off Webistrano deployments transparently without losing the joy of using the cap command. You need a fully configured Webistrano installation.'
     s.email = 'meyer@paperplanes.de'
     s.homepage = 'http://github.com/mattmatt/cap-ext-webistrano'
     s.authors = ["Mathias Meyer"]
