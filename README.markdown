@@ -34,6 +34,9 @@ several stages it'd be better to ask for the stage to be deployed:
       Capistrano::CLI.ui.ask "Specify the stage to deploy: "
     end
 
+License
+=======
+
 (c) 2009 Mathias Meyer
 
 Released under the MIT license.
