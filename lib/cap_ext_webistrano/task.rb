@@ -40,6 +40,7 @@ module CapExtWebistrano
       set_access_data
       @project = Project.find_by_name(@config[:application])
       @stage = @project.find_stage(@config[:stage])
+      Deployment.prefix = "#{@config[:webistrano_home]}/projects/#{@project.id}/stages/#{@stage.id}/"
       @deployment = Deployment.create(:task => task, :stage_id => @stage.id, :project_id => @project.id)
       loop_latest_deployment
     end
