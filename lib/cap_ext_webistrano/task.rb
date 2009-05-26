@@ -30,7 +30,8 @@ module CapExtWebistrano
     
     def print_diff(deployment)
       if deployment.log
-        diff = deployment.log.sub(log, "") 
+        diff = deployment.log
+        diff.slice!(log) 
         print diff
         log << diff
       end
