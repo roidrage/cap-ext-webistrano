@@ -25,7 +25,7 @@ configure for your application with Capistrano.
     set :user,            "admin"
     set :password,        "admin"
     set :stage,           "test" # specify the stage you want to deploy
-    set :webistrano_home, "http://webistrano.mydomain.com/"
+    set :webistrano_home, "http://webistrano.mydomain.com"
 
 If you only have one stage in your project this should do, however with
 several stages it'd be better to ask for the stage to be deployed:
@@ -33,6 +33,17 @@ several stages it'd be better to ask for the stage to be deployed:
     set :stage do
       Capistrano::CLI.ui.ask "Specify the stage to deploy: "
     end
+
+You can ask for the password too:
+
+    set :password do
+        Capistrano::CLI.password_prompt "Enter the deploy password: "
+    end
+
+Optionally, you can specify configuration that you had setup webistrano to
+prompt it:
+
+    set :prompt_config, { :password => 'mysecretpassword' }
 
 License
 =======
