@@ -48,6 +48,8 @@ prompt it:
 Changes
 =======
 
+- Added support for prompt configuration (Lucas Mundim)
+- Restore prefix_options hash as Active Resource lost it when reload method is called (Lucas Mundim)
 - Solved "regular expression too big" exception error on large string 
 output (Michael Lim)
 - Workaround to solve bug in @deployment.reload() not loading the site url 
