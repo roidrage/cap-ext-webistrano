@@ -34,6 +34,14 @@ several stages it'd be better to ask for the stage to be deployed:
       Capistrano::CLI.ui.ask "Specify the stage to deploy: "
     end
 
+Changes
+=======
+
+- Solved "regular expression too big" exception error on large string 
+output (Michael Lim)
+- Workaround to solve bug in @deployment.reload() not loading the site url 
+correctly (Michael Lim)
+
 License
 =======
 
