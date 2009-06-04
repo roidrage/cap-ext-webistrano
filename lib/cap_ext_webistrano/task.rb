@@ -43,7 +43,6 @@ module CapExtWebistrano
       set_access_data
       @project = Project.find_by_name(@config[:application])
       @stage = @project.find_stage(@config[:stage])
-      Deployment.prefix = "#{@config[:webistrano_home]}/projects/#{@project.id}/stages/#{@stage.id}/"
       params = { :task => task, :stage_id => @stage.id, :project_id => @project.id }
       params.merge!(:prompt_config => @config[:prompt_config]) if @config.exists?(:prompt_config)
       @deployment = Deployment.create(params)
