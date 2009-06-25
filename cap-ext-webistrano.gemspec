@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cap-ext-webistrano}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mathias Meyer"]
-  s.date = %q{2009-01-22}
+  s.date = %q{2009-06-25}
   s.email = %q{meyer@paperplanes.de}
   s.files = ["Rakefile", "README.markdown", "VERSION.yml", "lib/cap_ext_webistrano", "lib/cap_ext_webistrano/deployment.rb", "lib/cap_ext_webistrano/project.rb", "lib/cap_ext_webistrano/stage.rb", "lib/cap_ext_webistrano/task.rb", "lib/cap_ext_webistrano.rb", "test/cap_ext_webistrano_shoulda.rb", "test/capistrano_stub.rb", "test/project_shoulda.rb", "test/task_shoulda.rb", "test/test_helper.rb"]
   s.has_rdoc = true
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{A drop-in replacement for Capistrano to fire off Webistrano deployments transparently without losing the joy of using the cap command.}
+  s.summary = %q{A drop-in replacement for Capistrano to fire off Webistrano deployments transparently without losing the joy of using the cap command. You need a fully configured Webistrano installation.}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
