@@ -21,5 +21,11 @@ class CapExtWebistranoTest < Test::Unit::TestCase
       @cap.find_and_execute_task("deploy")
       assert @cap.ran
     end
+    
+    should "just call tasks that don't exist locally" do
+      @cap.stubs(:original_find_and_execute_task).raises(Capistrano::NoSuchTaskError.new, "the task activate:web does not exist")
+      @cap.find_and_execute_task("acticate:web")
+      assert @cap.ran
+    end
   end
 end

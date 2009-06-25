@@ -38,6 +38,10 @@ Capistrano::Configuration::Execution.class_eval do
   def find_and_execute_task(task, hooks = {})
     hijack_capistrano
     @callbacks = {}
-    original_find_and_execute_task(task, {})
+    begin
+      original_find_and_execute_task(task, {})
+    rescue Capistrano::NoSuchTaskError
+      CapExtWebistrano::Task.new(task, self).run
+    end
   end
 end
