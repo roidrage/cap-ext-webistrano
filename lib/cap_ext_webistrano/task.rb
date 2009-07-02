@@ -43,7 +43,7 @@ module CapExtWebistrano
       set_access_data
       @project = Project.find_by_name(@config[:application])
       @stage = @project.find_stage(@config[:stage])
-      params = { :task => task, :stage_id => @stage.id, :project_id => @project.id }
+      params = { :task => task, :stage_id => @stage.id, :project_id => @project.id, :description => @config[:description] }
       params.merge!(:prompt_config => @config[:prompt_config]) if @config.exists?(:prompt_config)
       @deployment = Deployment.create(params)
       loop_latest_deployment
