@@ -47,6 +47,7 @@ module CapExtWebistrano
       params.merge!(:prompt_config => @config[:prompt_config]) if @config.exists?(:prompt_config)
       @deployment = Deployment.create(params)
       loop_latest_deployment
+      exit(-1) unless @deployment.status == "success"
     end
   end
 end
