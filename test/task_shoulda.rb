@@ -45,7 +45,7 @@ class TaskTest < Test::Unit::TestCase
         Project.stubs(:find).returns([@project1, @project2])
         @stage1 = Stage.new(:name => "test", :id => 3)
         Stage.stubs(:find).returns([@stage1])
-        @deployment = Deployment.new(:completed_at => Time.now, :log => "Chunky bacon!")
+        @deployment = Deployment.new(:completed_at => Time.now, :log => "Chunky bacon!", :status => "success")
         Deployment.stubs(:create).returns @deployment
         Deployment.stubs(:find).returns(@deployment)
         @config[:application] = "Bacon"
@@ -63,7 +63,7 @@ class TaskTest < Test::Unit::TestCase
       end
       
       should "create a deployment" do
-        Deployment.expects(:create).with(:task => "deploy", :project_id => 2, :stage_id => 3).returns(@deployment)
+        Deployment.expects(:create).with(:task => "deploy", :project_id => 2, :stage_id => 3, :description => nil).returns(@deployment)
         @task.run
       end
       
@@ -77,6 +77,7 @@ class TaskTest < Test::Unit::TestCase
           @seq = sequence("latest")
           @deployment1 = Deployment.new(:completed_at => nil, :log => "Chunky bacon", :id => 2)
           @deployment2 = Deployment.new(:completed_at => Time.now, :log => "Chunky bacon is my bitch", :id => 2)
+          @deployment1.stubs(:status).returns("success")
           Deployment.stubs(:create).returns(@deployment1)
         end
         
