@@ -26,6 +26,7 @@ configure for your application with Capistrano.
     set :password,        "admin"
     set :stage,           "test" # specify the stage you want to deploy
     set :webistrano_home, "http://webistrano.mydomain.com"
+    set :host_to_deploy, "server-name-here" #if you wish to override the host
 
 If you only have one stage in your project this should do, however with
 several stages it'd be better to ask for the stage to be deployed:
