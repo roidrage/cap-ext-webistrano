@@ -1,6 +1,7 @@
 require 'cap_ext_webistrano/project'
 require 'cap_ext_webistrano/stage'
 require 'cap_ext_webistrano/deployment'
+require 'cap_ext_webistrano/host'
 
 module CapExtWebistrano
   class Task
@@ -13,7 +14,7 @@ module CapExtWebistrano
     end
 
     def set_access_data
-      [Project, Stage, Deployment].each do |klazz|
+      [Project, Stage, Deployment, Host].each do |klazz|
         klazz.configure(@config)
       end
     end
@@ -43,7 +44,18 @@ module CapExtWebistrano
       set_access_data
       @project = Project.find_by_name(@config[:application])
       @stage = @project.find_stage(@config[:stage])
-      params = { :task => task, :stage_id => @stage.id, :project_id => @project.id, :description => @config[:description] }
+      params = {}
+
+      if @config[:host_to_deploy]
+        hosts_all = Host.all
+        host_to_deploy = Host.find_by_name(@config[:host_to_deploy])
+        do_not_deploy_hosts = hosts_all - [host_to_deploy]
+        hosts_ids = do_not_deploy_hosts.collect {|h| h.id}
+        params = { :task => task, :stage_id => @stage.id, :project_id => @project.id, :description => @config[:description], :excluded_host_ids => hosts_ids }
+      else
+        params = { :task => task, :stage_id => @stage.id, :project_id => @project.id, :description => @config[:description]}
+      end
+
       params.merge!(:prompt_config => @config[:prompt_config]) if @config.exists?(:prompt_config)
       @deployment = Deployment.create(params)
       loop_latest_deployment
